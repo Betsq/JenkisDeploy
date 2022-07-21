@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "po3q8XKfSdlaXoPuhRo1XgmPDpNXcI1ylS3ldZbZQgY=",
+  "Source": "JenkisDeploy",
+  "BasePath": "_content/JenkisDeploy",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
