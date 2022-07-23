@@ -10,7 +10,7 @@ pipeline {
 				stage('StopIISApp'){
 					steps{
 						powershell "Stop-Website -Name 'Default Web Site'"
-						powershell "Remove-Item C:\\inetpub\\wwwroot\\* -Recurse -Force"
+						powershell "Get-ChildItem -Path C:\\inetpub\\wwwroot -Include *.* -File -Recurse | foreach { $_.Delete()}"
 					}
 				}
 				stage('Build') {
@@ -19,7 +19,7 @@ pipeline {
     					}
 				}
 			}
-}
+}	
 
 
 //environment {
