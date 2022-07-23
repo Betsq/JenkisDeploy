@@ -33,12 +33,7 @@ pipeline {
 					bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=False /p:publishUrl=${env.DESTINATION_FOLDER}"
 				}
 		}
-		stage('Replace web config'){
-			steps{
-				powershell "Clear-Content '${env.DESTINATION_FOLDER}\\web.config'"
-				powershell "Add-Content '${env.DESTINATION_FOLDER}\\web.config' 'test'"
-			}
-		}
+		
 		stage('Start the application in IIS'){
 			steps{
 				powershell "Start-Website -Name '${env.APP_NAME_IN_IIS}'"
