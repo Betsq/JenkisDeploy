@@ -29,12 +29,12 @@ pipeline {
 				powershell "Remove-Item ${env.DESTINATION_FOLDER}\\* -Exclude web.config -Recurse -Force";
 			}
 		}
-		stage('Restore packages'){
-			steps{
-				//bat "dotnet restore TestDeploy\\TestDeploy.csproj"
-				bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /t:Restore;Build"
-			}
-		}
+		//stage('Restore packages'){
+		//	steps{
+		//		//bat "dotnet restore TestDeploy\\TestDeploy.csproj"
+		//		bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /t:Restore;Build"
+		//	}
+		//}
 		//stage('Restore packages'){
 		//	steps{
 		//		bat "dotnet restore JenkisDeploy\\JenkisDeploy.csproj"
