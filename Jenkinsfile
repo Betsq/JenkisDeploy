@@ -9,8 +9,8 @@ pipeline {
 				}
 				stage('StopIISApp'){
 					steps{
-						powershell "Stop-Website -Name 'Default Web Site'"
-						powershell "Get-ChildItem -Path C:\\inetpub\\wwwroot -Include *.* -File -Recurse | foreach { $_.Delete()}"
+						//powershell "Stop-Website -Name 'Default Web Site'"
+						powershell "Remove-Item C:\\inetpub\\wwwroot\\* -Recurse -Force"
 					}
 				}
 				stage('Build') {
