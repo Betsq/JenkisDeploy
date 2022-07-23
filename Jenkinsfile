@@ -19,13 +19,18 @@ pipeline {
 				}
 				stage("Delete files"){
 					steps{
-						powershell "Remove-Item ${env.DESTINATION_FOLDER}\\* -Exclude web.config -Recurse -Force";
+						powershell "Remove-Item c:\\inetpub\\wwwroot\\* -Exclude web.config -Recurse -Force";
 					}
 				}
 				stage('Build') {
     					steps {
     					    bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=False /p:publishUrl=c:\\inetpub\\wwwroot"
     					}
+				}
+				stage('Replace web config'){
+					steps{
+						powershell "(Get-Content c:\\inetpub\\wwwroot\\web.config) -replace *, 'MyValue' | Set-Content c:\\inetpub\\wwwroot\\web.config"
+					}
 				}
 				stage('Start the application in IIS'){
 					steps{
