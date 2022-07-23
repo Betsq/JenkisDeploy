@@ -17,11 +17,7 @@ pipeline {
 				powershell "Stop-Website -Name 'Default Web Site'"
 			}
 		}
-		stage("Delete files"){
-			steps{
-				powershell "Remove-Item ${env.DESTINATION_FOLDER}\\* -Exclude web.config -Recurse -Force";
-			}
-		}
+		
 		stage('Build') {
 				steps {
 					bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=True /p:publishUrl=${env.DESTINATION_FOLDER}"
