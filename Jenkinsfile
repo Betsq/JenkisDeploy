@@ -7,9 +7,10 @@ environment {
 pipeline {
 	agent any
 	environment {
-   		PROJ_NAME = 'JenkisDeploy'
+   		PROJ_NAME = 'JenkisDeploy';
    		DESTINATION_FOLDER = 'C:\\inetpub\\wwwroot';
-		APP_NAME_IN_IIS = 'Default Web Site'
+		APP_NAME_IN_IIS = 'Default Web Site';
+		WEB_CONFIG_PATH = 'C:\\Users\\betsq\\Desktop\\web.config';
 	}
 
 	stages {
@@ -35,7 +36,7 @@ pipeline {
 		}
 		stage('Replace web config'){
 			steps{
-				powershell "Copy-Item 'C:\\Users\\betsq\\Desktop\\web.config' -Destination '${env.DESTINATION_FOLDER}'"
+				powershell "Copy-Item '${env.WEB_CONFIG_PATH}' -Destination '${env.DESTINATION_FOLDER}'"
 			}
 		}
 		stage('Start the application in IIS'){

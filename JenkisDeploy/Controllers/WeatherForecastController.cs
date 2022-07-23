@@ -35,4 +35,10 @@ public class WeatherForecastController : ControllerBase
     {
         return "Deplyed by jenkins";
     }
+
+    [HttpDelete]
+    public string G()
+    {
+        return "Delete";
+    }
 }
