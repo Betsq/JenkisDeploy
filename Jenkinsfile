@@ -40,8 +40,8 @@ pipeline {
 
 
 
-//def dotnet_build(){
+//ef dotnet_build(){
 //	dir("${env.PROJ_NAME}") {
 //		sh(script: "dotnet build ${env.PROJ_NAME}.csproj", returnStdout: true);
-//    }
+//   }
 //}
