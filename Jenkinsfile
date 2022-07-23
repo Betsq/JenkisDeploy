@@ -27,21 +27,20 @@ pipeline {
     					    bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=False /p:publishUrl=c:\\inetpub\\wwwroot"
     					}
 				}
-				stage('Replace web config'){
+				
+				stage('Start the application in IIS'){
 					steps{
-						powershell "Clear-Content 'c:\\inetpub\\wwwroot\\web.config'"
-						powershell "Add-Content 'c:\\inetpub\\wwwroot\\web.config' 'End of file'"
+						powershell "Start-Website -Name 'Default Web Site'"
 					}
 				}
-				
 			}
 }	
 
 
 
 
-//ef dotnet_build(){
+//def dotnet_build(){
 //	dir("${env.PROJ_NAME}") {
 //		sh(script: "dotnet build ${env.PROJ_NAME}.csproj", returnStdout: true);
-//   }
+//    }
 //}
