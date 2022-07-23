@@ -7,16 +7,20 @@ pipeline {
 						checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Betsq/JenkisDeploy']]])
 					}
 				}
-				stage('StopIISApp'){
+				stage('Stop the application in IIS'){
 					steps{
-						//powershell "Stop-Website -Name 'Default Web Site'"
-						powershell "Remove-Item C:\\inetpub\\wwwroot\\* -Recurse -Force"
+						powershell "Stop-Website -Name 'Default Web Site'"
 					}
 				}
 				stage('Build') {
     					steps {
     					    bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=True /p:publishUrl=c:\\inetpub\\wwwroot"
     					}
+				}
+				stage('Start the application in IIS'){
+					steps{
+						powershell "Start-Website -Name 'Default Web Site'"
+					}
 				}
 			}
 }	
