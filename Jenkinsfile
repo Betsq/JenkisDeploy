@@ -9,7 +9,7 @@ pipeline {
 				}
 				stage('StopIISApp'){
 					steps{
-						bat "powershell.exe Stop-Website -Name 'Default Web Site'"
+						powershell "Stop-Website -Name 'Default Web Site'"
 					}
 				}
 				stage('Build') {
