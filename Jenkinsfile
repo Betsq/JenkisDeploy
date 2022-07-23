@@ -7,6 +7,11 @@ pipeline {
 						checkout([$class: 'GitSCM', branches: [[name: '*/master']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[url: 'https://github.com/Betsq/JenkisDeploy']]])
 					}
 				}
+				stage('StopIISApp'){
+					steps{
+						sh(script: "Stop-Website -Name 'Default Web Site'", returnStdout: true);
+					}
+				}
 				stage('Build') {
     					steps {
     					    bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=True /p:publishUrl=c:\\inetpub\\wwwroot"
@@ -14,3 +19,14 @@ pipeline {
 				}
 			}
 }
+
+
+//environment {
+//   PROJ_NAME = 'JenkisDeploy'
+//}
+
+//def dotnet_build(){
+//	dir("${env.PROJ_NAME}") {
+//		sh(script: "dotnet build ${env.PROJ_NAME}.csproj", returnStdout: true);
+//    }
+//}
