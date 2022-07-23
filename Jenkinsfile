@@ -31,14 +31,20 @@ pipeline {
 		}
 		stage('Restore packages'){
 			steps{
-				bat "dotnet restore JenkisDeploy\\JenkisDeploy.csproj"
+				//bat "dotnet restore TestDeploy\\TestDeploy.csproj"
+				bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /t:Restore;Build"
 			}
 		}
-		stage('Clean'){
-			steps{
-				bat "dotnet clean JenkisDeploy\\JenkisDeploy.csproj"
-			}
-		}
+		//stage('Restore packages'){
+		//	steps{
+		//		bat "dotnet restore JenkisDeploy\\JenkisDeploy.csproj"
+		//	}
+		//}
+		//stage('Clean'){
+		//	steps{
+		//		bat "dotnet clean JenkisDeploy\\JenkisDeploy.csproj"
+		//	}
+		//}
 		stage('Build') {
 				steps {
 					bat "\"${tool 'MSBuild'}\" JenkisDeploy.sln /p:DeployOnBuild=true /p:DeployDefaultTarget=WebPublish /p:WebPublishMethod=FileSystem /p:SkipInvalidConfigurations=true /t:build /p:Configuration=Release /p:Platform=\"Any CPU\" /p:DeleteExistingFiles=False /p:publishUrl=${env.DESTINATION_FOLDER}"
