@@ -29,7 +29,7 @@ pipeline {
 				}
 				stage('Replace web config'){
 					steps{
-						powershell "Clear-Content 'c:\\inetpub\\wwwroot\\web.config' | Add-Content -Path 'c:\\inetpub\\wwwroot\\web.config' -Value 'End of file'"
+						powershell "Clear-Content 'c:\\inetpub\\wwwroot\\web.config' | Add-Content c:\\inetpub\\wwwroot\\web.config' -Value 'End of file'"
 					}
 				}
 				
