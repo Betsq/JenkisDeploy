@@ -32,11 +32,7 @@ pipeline {
 						powershell "Clear-Content 'c:\\inetpub\\wwwroot\\web.config' | Add-Content -Path 'c:\\inetpub\\wwwroot\\web.config' -Value 'End of file'"
 					}
 				}
-				stage('Start the application in IIS'){
-					steps{
-						//powershell "Start-Website -Name 'Default Web Site'"
-					}
-				}
+				
 			}
 }	
 
